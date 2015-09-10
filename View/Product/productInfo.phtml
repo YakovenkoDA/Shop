@@ -1,0 +1,43 @@
+
+<!--set params-->
+<?php   
+$product     = $view->getParam('product');
+$currentPage  = $view->getParam('currentPage');
+$url=URL.'/product/index/page/'.$currentPage;
+$src    = URL.'/img/img.png';
+$id='';
+if(!empty($product))
+    {
+    $id='/id/'.$product->id;
+    $name=$product->name;
+    $description = $product->description;
+    $price= $product->price;
+    $total= $product->total;
+    $imgUrl =('/img/Products/'.$product->img);        
+    if($product->img != NULL && is_readable(SITE_PATH.$imgUrl)){$src = URL.$imgUrl;}    
+    }      
+?>
+
+<!--form for insert(update) product-->
+<div class="mainBox" id="body">
+<div class="error"><?=$errorMessage?></div>
+<form action="<?=$url.$id.'/bye/1'?>" method="POST">
+    <div>
+     <label for="img"><img alt="<?='img-'.$product->img;?>" src="<?=$src?>"></label>
+   
+    </div>
+    <div id="forLabel">    
+    <label for="name">Name</label><?=$name?><br/>
+    <label for="price">Price</label><?=$price?><br/>
+    <label for="total">Total</label><?=$total?><br/>
+    <label for="description">description</label><br/><?=$description?>
+    </div>
+    
+    <div>
+        <input  type="submit" value="Bye">
+    </div>
+</form>
+<form action="<?=$url?>">
+    <input type="submit" value="Cansel">
+</form>
+</div>

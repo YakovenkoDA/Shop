@@ -1,0 +1,59 @@
+<!--include admin menu-->
+<?php include 'menu.phtml';?>
+
+<!-- set params -->
+<?php $url=URL.'/admin/product/page/';?>
+<?php $limit        = $controller->getSessParam('limit'); ?>
+<?php $orderType    = $controller->getSessParam('ordertype'); ?>
+<?php $orderBy      = $controller->getSessParam('orderByProduct'); ?>
+<?php $currentPage  = $view->getParam('currentPage'); ?>
+<?php $products     = $view->getParam('products'); ?>
+
+<!--include limit for items-->
+<?php include SITE_PATH.DS.'View'.DS.'limit.phtml';?>
+
+<h2 class="mainBox">ADmin продукты</h2>
+<h3><a href="<?=URL.'/admin/productInfo'?>">Добавить новый</a></h3>
+
+<!-- menu's for sort-->
+<?php if(!empty($products)) :?>
+    <table align="center">
+        <tr>
+            <th></th>
+            <?php if($orderType == 'asc') : ?>
+                <th><a href='<?php echo $url.$currentPage;?>/orderby/img/ordertype/desc'>Img<?php if($orderBy == 'img') :?>&darr;<?php endif; ?></a></th>
+                <th><a href='<?php echo $url.$currentPage;?>/orderby/name/ordertype/desc'>Name<?php if($orderBy == 'name') :?>&darr;<?php endif; ?></a></th>
+                <th><a href='<?php echo $url.$currentPage;?>/orderby/name/ordertype/desc'>description<?php if($orderBy == 'description') :?>&darr;<?php endif; ?></a></th>
+                <th><a href='<?php echo $url.$currentPage;?>/orderby/price/ordertype/desc'>Price<?php if($orderBy == 'price') :?>&darr;<?php endif; ?></a></th>
+                <th><a href='<?php echo $url.$currentPage;?>/orderby/total/ordertype/desc'>Total<?php if($orderBy == 'total') :?>&darr;<?php endif; ?></a></th>
+            <?php else : ?>
+                <th><a href='<?php echo $url.$currentPage;?>/orderby/img/ordertype/asc'>Img<?php if($orderBy == 'img') :?>&uarr;<?php endif; ?></a></th>
+                <th><a href='<?php echo $url.$currentPage;?>/orderby/name/ordertype/asc'>Name<?php if($orderBy == 'name') :?>&uarr;<?php endif; ?></a></th>
+                <th><a href='<?php echo $url.$currentPage;?>/orderby/name/ordertype/asc'>description<?php if($orderBy == 'description') :?>&uarr;<?php endif; ?></a></th>
+                <th><a href='<?php echo $url.$currentPage;?>/orderby/price/ordertype/asc'>Price<?php if($orderBy == 'price') :?>&uarr;<?php endif; ?></a></th>
+                <th><a href='<?php echo $url.$currentPage;?>/orderby/total/ordertype/asc'>Total<?php if($orderBy == 'total') :?>&uarr;<?php endif; ?></a></th>
+            <?php endif; ?>  
+               <th></th>  
+        </tr> 
+        
+<!-- print items-->   
+    <?php foreach($products as $product) : ?>    
+    <tr>   
+        <td><a href="<?=URL.'/admin/productInfo/page/'.$currentPage.'/id/'.$product->id?>">change</a></td>
+        <td class="mainBox"><?php echo $product->img;?></td>
+        <td class="mainBox"><?php echo $product->name;?></td>
+        <td class="mainBox"><?php echo $product->description;?></td>
+        <td class="mainBox"><?php echo $product->price;?></td>
+        <td class="mainBox"><?php echo $product->total;?></td>
+        <td><a href="<?=URL.'/admin/remove/action/product/page/'.$currentPage.'/id/'.$product->id?>">delete</a></td>
+    </tr>
+        <?php endforeach; ?>   
+</table>
+
+<!--include pagination-->
+    <?php 
+    $countPages = ceil($view->getParam('countProducts') / $limit);
+    if($countPages>1){include SITE_PATH.DS.'View'.DS.'paginator.phtml';}
+    ?>
+
+<?php endif; ?>

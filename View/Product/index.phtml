@@ -1,0 +1,55 @@
+<h2 class="mainBox">Наши продукты</h2>
+
+<!--set params-->
+    <?php $url=URL.'/product/index/page/';?>
+<?php $limit        = $controller->getSessParam('limit'); ?>
+<?php $orderType    = $controller->getSessParam('ordertype'); ?>
+<?php $orderBy      = $controller->getSessParam('orderByProduct'); ?>
+<?php $currentPage  = $view->getParam('currentPage'); ?>
+<?php $products     = $view->getParam('products'); ?>
+
+<?php if(!empty($products)) :?>
+
+<!--include limit for items-->
+<?php include SITE_PATH.DS.'View'.DS.'limit.phtml';?>
+<div>
+
+<!-- menu for sort-->
+<div id="productTitle" class="Title , mainBox">
+    <label>&#9660; Cортировать по</label>    
+    <div><a href='<?= $url.$currentPage;?>/orderby/name'>Имени<?php if($orderBy == 'name') :?>&#9668;<?php endif; ?></a></div>
+     <div><a href='<?= $url.$currentPage;?>/orderby/price'>Цене<?php if($orderBy == 'price') :?>&#9668;<?php endif; ?></a></div>
+     <div><a href='<?= $url.$currentPage;?>/orderby/total'>Количеству<?php if($orderBy == 'total') :?>&#9668;<?php endif; ?></a></div>
+</div>
+<div class="Title">
+    <a href='<?= $url.$currentPage;?>/ordertype/asc'><?php if($orderType == 'asc') :?>&#9650;<?php endif; ?>по возрастанию</a>
+    <a href='<?= $url.$currentPage;?>/ordertype/desc'><?php if($orderType == 'desc') :?>&#9660;<?php endif; ?>по убыванию</a> 
+</div>
+
+<!--print items-->
+    <?php foreach($products as $product) : ?>
+    <?php
+        $src    = URL.'/img/img.png';
+        $imgUrl =('/img/Products/'.$product->img);           
+        if($product->img != NULL && is_readable(SITE_PATH.$imgUrl)){$src = URL.$imgUrl;}        
+    ?>
+    <div id="product" class="mainBox"> 
+        <div><a class="gallery"  title="<?=$product->name?>" href="<?=$src?>"><img alt="<?='img-'.$product->img;?>" src="<?=$src?>"></a></div>       
+        <div><label>Название__:</label><a href="<?=URL.'/product/productInfo/page/'.$currentPage.'/id/'.$product->id?>"><?= $product->name;?> </a> </div>      
+        <div><label>Цена______:</label><?= $product->price;?></div>
+        <div><label>Количество:</label><?= $product->total;?></div>
+        <label>     Описание______________</label>
+        <div><?= $product->description;?></div>        
+    </div>
+        <?php endforeach; ?>
+</div>
+
+<!--include pagination-->
+    <?php 
+    $countPages = ceil($view->getParam('countProducts') / $limit);
+    if($countPages>1){include SITE_PATH.DS.'View'.DS.'paginator.phtml';}
+    ?>
+
+<?php  elseif($view->getParam('error')) : ?>
+    <div style="color:red;"><h1><?php echo $view->getParam('error')?></h1></div>
+<?php endif; ?>

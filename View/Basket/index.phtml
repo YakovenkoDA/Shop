@@ -1,0 +1,23 @@
+
+<?php 
+$basket        = $controller->getSessParam('basket');
+$url=URL.'/basket/index'
+?>
+<?php if($basket):?>
+<?php
+$total=0;
+foreach ($basket as $item) {
+    $product=  unserialize($item);  
+    $price=$product->price*$product->count;
+    $total+=$price;
+    echo '<a href="'.URL.'/product/productInfo/id/'.$product->id.'">'.$product->name.'___'.$product->count.'___'.$price.'<a>';
+    echo '<a href="'.$url.'/remove/'.$product->id.'">remove<a>';
+    echo '<br/>';
+}
+?>
+<h3>total = <?=$total?></h3>
+<a href="<?=$url.'/remove/all'?>">remove all</a>
+<a href="<?=URL.'/basket/bue'?>"> bue </a>
+<?php else:?>
+Basket is empty
+<?php endif;?>

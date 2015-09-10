@@ -1,0 +1,36 @@
+<?php
+/**
+ * @var Model_User $user
+ */
+$user = $view->getParam('user');
+
+?>
+<?php if($user) : ?>
+
+<!--set params-->
+<?php 
+    $src = URL.'/img/img.png';
+    $imgUrl =('/img/Users/'.$user->photo);        
+    if($user->photo != NULL && is_readable(SITE_PATH.$imgUrl)){$src = URL.$imgUrl;}
+?>
+
+<!--show user profile-->
+<div class="mainBox" id="body">
+    <div>
+        <img alt="photo-<?=$user->login;?>" src="<?=$src?>"> 
+    </div>
+    <div id="forLabels">
+        <p>login :</p>
+        <p>email :</p>   
+        <p>skills :</p>
+    </div>    
+    <div id="userInfo">
+        <p><?=!empty($user->login) ? $user->login : 'emty';?></p>
+        <p><?=!empty($user->email) ? $user->email : 'emty';?></p>
+        <p><?=!empty($user->skills) ?$user->skills : 'emty';?></p>
+    </div>    
+</div>
+
+<?php  elseif($view->getParam('error')) : ?>
+    <div style="color:red;"><h1><?php echo $view->getParam('error')?></h1></div>
+<?php endif; ?>

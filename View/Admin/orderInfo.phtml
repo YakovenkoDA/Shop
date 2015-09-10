@@ -1,0 +1,75 @@
+<!--check error-->
+<?php
+$errorType = $view->getParam('error');
+$errorMessage = '';
+echo $errorType;
+    if(!empty($errorType)) {
+        switch($errorType) {
+            case System_Exception::INVALID_LOGIN:
+                $errorMessage = 'User not found';
+                break;
+            case System_Exception:: NOT_FOUND:
+                $errorMessage = 'Product not found';
+                break;
+            case System_Exception::VALIDATE_ERROR:
+                $errorMessage = 'uncorect date';
+                break;
+            default : $errorMessage=$errorType;
+        }
+    }?>
+
+<!--set params-->
+<?php   
+$order     = $view->getParam('order');
+$currentPage  = $view->getParam('currentPage');
+$url=URL.'/Admin/order';
+
+if(!empty($order))
+    {
+    $url.='/id/'.$order->id;
+    $user=$order->modelUser;
+    $date = $order->date;
+    $amount= $order->amount;
+    $products= $order->orderItems;
+    }      
+?>
+
+<!--form for insert(update) product-->
+<div class="mainBox" id="body">
+<div class="error"><?=$errorMessage?></div>
+<form action="<?=$url.'/page/'.$currentPage.'/set/1'?>" method="POST" enctype="multipart/form-data">
+    
+    <div id="forInput">
+    <label for="email">email</label>   
+    <input type="text" name="email" id="name" value="<?=$user->email?>"placeholder="new name"> 
+    </div>  
+    <div>
+    <label for="date">date</label> 
+    <input type="date" name="date" id="date" value="<?=$date?>"placeholder="new total">
+    </div> 
+    <h4>products</h4> 
+    <a id="add" href="#">add product</a>
+    <div id="products">
+        <?php
+        $i=0;
+    foreach ($products as $item)
+        {     
+        ++$i;
+        echo '<div>';
+        echo '<label name="'.$i.'">'.$i.'</label>';
+        echo '<input type="text" name="product'.$i.'" id="product'.$i.'" value="'.$item->modelProduct->name.'">';
+        echo '<input type="number" name="quantity'.$i.'" id="quantity'.$i.'" value="'.$item->quantity.'">';
+        echo '</div>';
+        }
+    ?>
+    </div>  
+    
+    <div>
+        <input type="submit" value="Ok">
+        <input type="reset" value="Reset">
+    </div>
+</form>
+<form action="<?=URL.'/Admin/order'.'/page/'.$currentPage?>">
+    <input type="submit" value="Cansel">
+</form>
+</div>
