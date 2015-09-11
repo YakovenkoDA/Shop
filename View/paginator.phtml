@@ -1,6 +1,6 @@
 <?php 
 // Входные параметры
-  $countShowPages = 5;
+  $countShowPages = 6;
   $halfShowPages=floor($countShowPages / 2);
     $left = $currentPage - 1;
     $right = $countPages - $currentPage;
@@ -15,15 +15,29 @@
 ?>
   <!-- вывод Pagination -->
   <div id="pagination">
-    <?php echo $currentPage==1?'Предыдущая':'<a href="'.$url.($currentPage - 1).'" title="Предыдущая страница">Предыдущая</a>';?>
-      <?php if ($left > $halfShowPages): ?>      
-      <a href="<?=$url.'1'?>" title="Первая страница">1...</a>
-    <?php endif; ?>
-    <?php for ($i = $start; $i <= $end; $i++): ?>
-      <?php echo $i == $currentPage ? '<span>'.$i.'</span>':'<a href="'.$url.$i.'">'.$i.'</a>';?>
-    <?php endfor; ?>
-    <?php if ($right >$halfShowPages): ?>      
-      <a href="<?=$url.$countPages?>" title="Последняя страница">...<?=$countPages?></a>      
-    <?php endif; ?>
-     <?php echo $currentPage==$countPages?'Следующая':'<a href="'.$url.($currentPage + 1).'" title="Следующая страница">Следующая</a>';?>
+      <div class="row">
+          <div class="col-md-4">
+              <ul class="pager">
+                <?php echo $currentPage==1?'<li class="previous disabled"><a href="#">Предыдущая</a></li>':'<li><a href="'.$url.($currentPage - 1).'" title="Предыдущая страница">Предыдущая</a></li>';?>
+              </ul>
+          </div>
+          <div class="col-md-4">
+              <ul class="pagination">
+                <?php if ($left > $halfShowPages): ?>      
+                    <li><a href="<?=$url.'1'?>" title="Первая страница">1...</a></li>
+                <?php endif; ?>
+                <?php for ($i = $start; $i <= $end; $i++): ?>
+                    <?php echo $i == $currentPage ? '<li class="active"><a href="#">'.$i.'</a></li>':'<li><a href="'.$url.$i.'">'.$i.'</a></li>';?>
+                <?php endfor; ?>
+                <?php if ($right >$halfShowPages): ?>      
+                    <li><a href="<?=$url.$countPages?>" title="Последняя страница">...<?=$countPages?></a></li>     
+                <?php endif; ?>
+              </ul>
+          </div>
+          <div class="col-md-4">
+              <ul class="pager">
+                <?php echo $currentPage==$countPages?'<li class="previous disabled"><a href="#">Следующая</a></li>':'<li><a href="'.$url.($currentPage + 1).'" title="Следующая страница">Следующая</a></li>';?>
+              </ul>
+          </div>
+      </div>
   </div>

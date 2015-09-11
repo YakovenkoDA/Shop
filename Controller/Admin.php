@@ -31,8 +31,8 @@ class Controller_Admin extends System_Controller
          */
         if(!empty($params['limit'])){$this->setSessParam('limit',$params['limit']);}
         if(!empty($params['ordertype'])){$this->setSessParam('ordertype',$params['ordertype']);}
-        if(!empty($params['orderby'])){$this->setSessParam('orderByCustomer',$params['orderby']);}
-        else {$params['orderby']=$this->getSessParam('orderByCustomer',$params['orderby']);}        
+        if(!empty($params['orderby'])){$this->setSessParam('orderByOrder',$params['orderby']);}
+        else {$params['orderby']=$this->getSessParam('orderByOrder');}        
         $currentPage    = !empty($params['page']) ? $params['page'] : 1;
         /**
          * if remove or insert(update) product
@@ -70,7 +70,7 @@ class Controller_Admin extends System_Controller
         if(!empty($params['limit'])){$this->setSessParam('limit',$params['limit']);}
         if(!empty($params['ordertype'])){$this->setSessParam('ordertype',$params['ordertype']);}
         if(!empty($params['orderby'])){$this->setSessParam('orderByCustomer',$params['orderby']);}
-        else {$params['orderby']=$this->getSessParam('orderByCustomer',$params['orderby']);}
+        else {$params['orderby']=$this->getSessParam('orderByCustomer');}
         if(!empty($_SESSION['category'])){unset($_SESSION['category']);};
         $currentPage    = !empty($params['page']) ? $params['page'] : 1; 
         /**
@@ -101,7 +101,7 @@ class Controller_Admin extends System_Controller
         if(!empty($params['limit'])){$this->setSessParam('limit',$params['limit']);}
         if(!empty($params['ordertype'])){$this->setSessParam('ordertype',$params['ordertype']);}
         if(!empty($params['orderby'])){$this->setSessParam('orderByProduct',$params['orderby']);}
-        else {$params['orderby']=$this->getSessParam('orderByProduct',$params['orderby']);}
+        else {$params['orderby']=$this->getSessParam('orderByProduct');}
         $currentPage    = !empty($params['page']) ? $params['page'] : 1; 
         /**
          * if remove or insert(update) product

@@ -25,13 +25,11 @@
                 <th><a href='<?php echo $url.$currentPage;?>/orderby/login/ordertype/desc'>login<?php if($orderBy == 'login') :?>&darr;<?php endif; ?></a></th>
                 <th><a href='<?php echo $url.$currentPage;?>/orderby/email/ordertype/desc'>email<?php if($orderBy == 'email') :?>&darr;<?php endif; ?></a></th>
                 <th><a href='<?php echo $url.$currentPage;?>/orderby/photo/ordertype/desc'>photo<?php if($orderBy == 'photo') :?>&darr;<?php endif; ?></a></th>
-                <th><a href='<?php echo $url.$currentPage;?>/orderby/skills/ordertype/desc'>skills<?php if($orderBy == 'skills') :?>&darr;<?php endif; ?></a></th>
                 <th><a href='<?php echo $url.$currentPage;?>/orderby/role_id/ordertype/desc'>role_id<?php if($orderBy == 'role_id') :?>&darr;<?php endif; ?></a></th>
             <?php else : ?>
                 <th><a href='<?php echo $url.$currentPage;?>/orderby/login/ordertype/asc'>login<?php if($orderBy == 'login') :?>&uarr;<?php endif; ?></a></th>
                 <th><a href='<?php echo $url.$currentPage;?>/orderby/email/ordertype/asc'>email<?php if($orderBy == 'email') :?>&uarr;<?php endif; ?></a></th>
                 <th><a href='<?php echo $url.$currentPage;?>/orderby/photo/ordertype/asc'>photo<?php if($orderBy == 'photo') :?>&uarr;<?php endif; ?></a></th>
-                <th><a href='<?php echo $url.$currentPage;?>/orderby/skills/ordertype/asc'>skills<?php if($orderBy == 'skills') :?>&uarr;<?php endif; ?></a></th>
                 <th><a href='<?php echo $url.$currentPage;?>/orderby/role_id/ordertype/asc'>role_id<?php if($orderBy == 'role_id') :?>&uarr;<?php endif; ?></a></th>
             <?php endif; ?>  
                <th></th>  
@@ -44,7 +42,6 @@
         <td class="mainBox"><?php echo $customer->login;?></td>
         <td class="mainBox"><?php echo $customer->email;?></td>
         <td class="mainBox"><?php echo $customer->photo;?></td>
-        <td class="mainBox"><?php echo $customer->skills;?></td>
         <td class="mainBox"><?php echo $customer->role_id;?></td>
         <td><a href="#">delete</a></td>
     </tr>

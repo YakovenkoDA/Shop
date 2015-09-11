@@ -13,7 +13,7 @@ class Controller_Product extends System_Controller
         if(!empty($params['limit'])){$this->setSessParam('limit',$params['limit']);}
         if(!empty($params['ordertype'])){$this->setSessParam('ordertype',$params['ordertype']);}
         if(!empty($params['orderby'])){$this->setSessParam('orderByProduct',$params['orderby']);}        
-        else {$params['orderby']=$this->getSessParam('orderByProduct',$params['orderby']);}
+        else {$params['orderby']=$this->getSessParam('orderByProduct');}
         if(isset($params['category'])){$this->setSessParam('category',$params['category']);}
         
         try {
