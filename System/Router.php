@@ -53,9 +53,7 @@ class System_Router
         
         $layoutFileName = 'View' . DS . 'layout.phtml';
         $viewFileName = 'View' . DS . $viewFolder . DS . $actionName . '.phtml';
-
-        //include $viewFileName;
-        
+                
         include $layoutFileName;
     }
     

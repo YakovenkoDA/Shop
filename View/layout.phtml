@@ -34,6 +34,7 @@
         <title><?php echo $_SERVER['SERVER_NAME'];?></title>
         
         <link href="<?= URL; ?>/Bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <link href="<?= URL; ?>/Bootstrap/css/bootstrap-theme.css" rel="stylesheet" type="text/css"/>
 <!--        <link href="<?= URL.'/css/'.$viewFolder.'/'.$actionName.'.css'; ?>" rel="stylesheet" type="text/css"/>-->
         
         <!-- add lquery-->
@@ -49,37 +50,85 @@
         <script type="text/javascript" src="<?= URL;?>/js/authorize.js"></script>
         <script type="text/javascript" src="<?= URL.'/js/'.$viewFolder.'/'.$actionName.'.js'?>"></script>
     </head>    
-    <body>    
-        <div id="error" class="error"><?=$errorMessage?></div>
-        <div <?= !empty($userId) ?'':'style="display: none;"';?> class="mainBox" id="userEnter">
-        <div id="userEmail">'Вы зашли как:<a href="<?=URL?>/user/profile/id/<?=$userId?>"><?php echo !empty($userEmail) ? $userEmail : ''; ?></a></div>
-        <div id="userId"><a id="logout" href="#"><?php echo !empty($userId) ? 'Exit' : ''?></a></div>    
-        </div>
-        <div <?=!empty($userEmail)? 'style="display: none;"':''?> id="loginFormDiv">
-            <form name="autorize" id="loginForm" method="POST" autocomplete="off">
-                <input placeholder="Login" type="text" name="email" maxlength="20" /><br />
-                <input placeholder="Password" type="password" name="password" maxlength="30" /><br />
-                <input id="save_checkbox" type="checkbox" name="save" value="1" /><label for="save_checkbox">Save</label><br />
-                <input type="submit" name="login" value="Enter" />
-                <input type="submit" name="register" value="Register" />
-            </form>
-        </div>            
-        <div id="menu" class="mainBox">
-                <a href="<?php echo URL;?>/">Главная </a>                              
-                <a href="<?php echo URL;?>/company/about">О компании </a>
-                <a href="<?php echo URL;?>/company/contact">Контакты </a>
-                <a href="<?php echo URL;?>/basket">Basket </a> 
-                <a id="admin_href" href="<?php echo URL;?>/admin/index" <?php if($userRoleId != Model_User::ROLE_ADMIN_ID) { echo 'style="display: none;"'; } ?>>Админка </a>
-            </div>         
+    <body class="container">
         
-    <div id="forContent">
-    <?php
-        if(file_exists($viewFileName)) {
-            include $viewFileName;
-        }
-    ?>
-    </div>
-      <script src="<?= URL;?>/Bootstrap/js/bootstrap.min.js"></script>   
+                     
+                <div id="error" class="error"><?=$errorMessage?></div>
+                <div <?= !empty($userId) ?'':'style="display: none;"';?> class="mainBox" id="userEnter">
+                <div id="userEmail">'Вы зашли как:<a href="<?=URL?>/user/profile/id/<?=$userId?>"><?php echo !empty($userEmail) ? $userEmail : ''; ?></a></div>
+                <div id="userId"><a id="logout" href="#"><?php echo !empty($userId) ? 'Exit' : ''?></a></div>    
+                </div>
+                <div <?=!empty($userEmail)? 'style="display: none;"':''?> id="loginFormDiv">
+                    <form name="autorize" id="loginForm" method="POST" autocomplete="off">
+                        <input placeholder="Login" type="text" name="email" maxlength="20" />
+                        <input placeholder="Password" type="password" name="password" maxlength="30" />
+                        <input id="save_checkbox" type="checkbox" name="save" value="1" /><label for="save_checkbox">Save</label>
+                        <input type="submit" name="login" value="Enter" />
+                        <input type="submit" name="register" value="Register" />
+                    </form>
+                </div>            
+           
+       
+                <div id="menu" class="mainBox">
+                <ul class="nav nav-tabs">
+                    <li <?php if($viewFolder=='Index'):?>class="active"<?php endif;?>>
+                        <a href="<?php echo URL;?>/">Главная </a></li>
+                    <li <?php if($actionName=='about'):?>class="active"<?php endif;?>>
+                        <a href="<?php echo URL;?>/company/about">О компании </a></li>
+                    <li <?php if($actionName=='contact'):?>class="active"<?php endif;?>>
+                        <a href="<?php echo URL;?>/company/contact">Контакты </a></li>
+                    <li <?php if($viewFolder=='Basket'):?>class="active"<?php endif;?>>
+                        <a href="<?php echo URL;?>/basket">Basket </a></li> 
+                    <li <?php if($viewFolder=='Admin'):?>class="active"<?php endif;?>>
+                        <a id="admin_href" href="<?php echo URL;?>/admin/index" <?php if($userRoleId != Model_User::ROLE_ADMIN_ID) { echo 'style="display: none;"'; } ?>>Админка </a></li>
+                </ul>
+                </div> 
+   
+                <div id="forContent">
+                <?php
+                    if(file_exists($viewFileName)) {
+                        include $viewFileName;
+                    }
+                ?>
+                </div>
+ <div class="container">
+
+      <!-- Main hero unit for a primary marketing message or call to action -->
+      <div class="hero-unit">
+        <h1>Hello, world!</h1>
+        <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+        <p><a href="#" class="btn btn-primary btn-large">Learn more »</a></p>
+      </div>
+
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="span4">
+          <h2>Heading</h2>
+          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+          <p><a class="btn" href="#">View details »</a></p>
+        </div>
+        <div class="span4">
+          <h2>Heading</h2>
+          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+          <p><a class="btn" href="#">View details »</a></p>
+       </div>
+        <div class="span4">
+          <h2>Heading</h2>
+          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+          <p><a class="btn" href="#">View details »</a></p>
+        </div>
+      </div>
+
+      <hr>
+
+      <footer>
+        <p>© Company 2013</p>
+      </footer>
+
+</div>
+            <script src="<?= URL;?>/Bootstrap/js/bootstrap.min.js"></script> 
+            
+        
     </body>
     
 </html>
