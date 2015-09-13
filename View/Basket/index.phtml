@@ -3,21 +3,56 @@
 $basket        = $controller->getSessParam('basket');
 $url=URL.'/basket/index'
 ?>
+<div class="text-center col-md-8 col-md-offset-2">
+    
 <?php if($basket):?>
+    <div class="row">
+        <h2 class="col-md-3 col-md-offset-4">Корзина</h2>
+        <div  class="col-md-3"><br/><a href="<?=$url.'/remove/all'?>" class="btn btn-primary btn-sm text-right" role="button">Очистить</a></div>
+    </div>
+    <div class="row bg-info"">
+        <br/>
+        <div class="col-md-3 col-md-offset-2">
+           Название 
+        </div>
+        <div class="col-md-1">
+          Кол-во  
+        </div>
+        <div class="col-md-2">
+           Цена 
+        </div>
+    </div>
 <?php
 $total=0;
-foreach ($basket as $item) {
-    $product=  unserialize($item);  
+foreach ($basket as $item):?>
+    <?php $product=  unserialize($item);  
     $price=$product->price*$product->count;
-    $total+=$price;
-    echo '<a href="'.URL.'/product/productInfo/id/'.$product->id.'">'.$product->name.'___'.$product->count.'___'.$price.'<a>';
-    echo '<a href="'.$url.'/remove/'.$product->id.'">remove<a>';
-    echo '<br/>';
-}
-?>
-<h3>total = <?=$total?></h3>
-<a href="<?=$url.'/remove/all'?>">remove all</a>
-<a href="<?=URL.'/basket/bue'?>"> bue </a>
+    $total+=$price;?>
+    <div class="row bg-info">
+        <div class="col-md-3 col-md-offset-2">
+           <a href="<?=URL.'/product/productInfo/id/'.$product->id?>"><?=$product->name?><a>
+        </div>
+        <div class="col-md-1">
+          <?=$product->count?>
+        </div>
+        <div class="col-md-2">
+           <?=$price?>
+        </div>
+        <div class="col-md-2">
+            <a href="<?=$url.'/remove/'.$product->id?>" class="btn btn-info btn-xs text-right" role="button">удалить<a>
+        </div>
+    </div>
+<?php endforeach;?>
+<br />
+    <div class="row">
+        <h4 class="col-md-3 col-md-offset-5">Итого: <?=$total?> грн</h4>
+        <div  class="col-md-2"><a href="<?=URL.'/basket/buy'?>" class="btn btn-success btn-lg text-right" role="button"> Купить </a></div>
+    </div>
+
+
+
+
 <?php else:?>
-Basket is empty
+<h5>Ваша корзина пуста</h5>
 <?php endif;?>
+</div>

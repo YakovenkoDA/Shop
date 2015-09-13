@@ -13,31 +13,59 @@ if(!empty($product))
     $description = $product->description;
     $price= $product->price;
     $total= $product->total;
-    $imgUrl =('/img/Products/'.$product->img);        
+    $imgUrl =('/img/Products/'.$product->category.'/'.$product->img);        
     if($product->img != NULL && is_readable(SITE_PATH.$imgUrl)){$src = URL.$imgUrl;}    
     }      
 ?>
 
 <!--form for insert(update) product-->
-<div class="mainBox" id="body">
+<div class="text-center bg-info col-md-4 col-md-offset-4" id="body">
 <div class="error"><?=$errorMessage?></div>
 <form action="<?=$url.$id.'/bye/1'?>" method="POST">
+    <br/>
     <div>
-     <label for="img"><img alt="<?='img-'.$product->img;?>" src="<?=$src?>"></label>
+        <img class="img-polaroid" height="300px" alt="<?='img-'.$product->img;?>" src="<?=$src?>">
    
     </div>
     <div id="forLabel">    
-    <label for="name">Name</label><?=$name?><br/>
-    <label for="price">Price</label><?=$price?><br/>
-    <label for="total">Total</label><?=$total?><br/>
-    <label for="description">description</label><br/><?=$description?>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-2">
+                <label for="name">Название</label>
+            </div>
+            <div class="col-md-4">
+                <?=$name?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-2">
+                <label for="price">Цена</label>
+            </div>
+             <div class="col-md-4">
+                <?=$price?>
+             </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-2">
+                <label for="quantity">Количество</label>
+            </div>
+            <div class="col-md-4">
+                <input type="number" name="quantity" id="quantity" value="1">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+            <label for="description">Описание</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <?=$description?>
+            </div>
+        </div>
     </div>
-    
-    <div>
+  <div>
         <input  type="submit" value="Bye">
-    </div>
-</form>
-<form action="<?=$url?>">
-    <input type="submit" value="Cansel">
+        <a href="<?=$url?>" class="btn btn-primary btn-sm text-right" role="button">Cansel</a>
+  </div>
 </form>
 </div>

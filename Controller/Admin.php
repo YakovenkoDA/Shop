@@ -58,36 +58,6 @@ class Controller_Admin extends System_Controller
     
     
     /**
-     * Admin customer
-     * return Model_User to view 
-     */
-    public function customerAction()
-    {
-     $params = $this->_getArguments();
-        /**
-         * check $params 
-         */
-        if(!empty($params['limit'])){$this->setSessParam('limit',$params['limit']);}
-        if(!empty($params['ordertype'])){$this->setSessParam('ordertype',$params['ordertype']);}
-        if(!empty($params['orderby'])){$this->setSessParam('orderByCustomer',$params['orderby']);}
-        else {$params['orderby']=$this->getSessParam('orderByCustomer');}
-        if(!empty($_SESSION['category'])){unset($_SESSION['category']);};
-        $currentPage    = !empty($params['page']) ? $params['page'] : 1; 
-        /**
-         * @var Model_User[] $customerModels
-         */
-        $customerModels = Model_User :: getItems($params);
-        $countCustomers = Model_User :: getCountItems();
-        
-        if($this->getSessParam('limit')== NULL){$this->setSessParam('limit',5);}
-        /**
-         * set view
-         */
-        $this->view->setParam('customers', $customerModels);
-        $this->view->setParam('countCustomers', $countCustomers);
-        $this->view->setParam('currentPage', $currentPage);        
-    }
-    /**
      * Admin product
      * return Model_Product to view
      */

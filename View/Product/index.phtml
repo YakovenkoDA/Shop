@@ -51,22 +51,22 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav nav-pills">
                         <li <?php if($category=='1'):?>class="active"<?php endif;?>>
-                            <a href="<?php echo URL;?>/product/index/category/1">1 $category</a>
+                            <a href="<?php echo URL;?>/product/index/category/1">Велосипеды</a>
                         </li>
                         <li <?php if($category=='2'):?>class="active"<?php endif;?>>
-                            <a href="<?php echo URL;?>/product/index/category/2">2 $category</a>
+                            <a href="<?php echo URL;?>/product/index/category/2">Ролики</a>
                         </li>
                         <li <?php if($category=='3'):?>class="active"<?php endif;?>>
-                            <a href="<?php echo URL;?>/product/index/category/3">3 $category</a>
+                            <a href="<?php echo URL;?>/product/index/category/3">Скейты</a>
                         </li>
                         <li <?php if($category=='4'):?>class="active"<?php endif;?>>
-                            <a href="<?php echo URL;?>/product/index/category/4">4 $category</a>
+                            <a href="<?php echo URL;?>/product/index/category/4">Коньки</a>
                         </li> 
                         <li <?php if($category=='5'):?>class="active"<?php endif;?>>
-                            <a href="<?php echo URL;?>/product/index/category/5">5 $category</a>
+                            <a href="<?php echo URL;?>/product/index/category/5">Лыжи</a>
                         </li> 
                         <li <?php if($category=='6'):?>class="active"<?php endif;?>>
-                           <a href="<?php echo URL;?>/product/index/category/6">6 $category</a>
+                           <a href="<?php echo URL;?>/product/index/category/6">Сноуборды</a>
                         </li>
                     </ul>
                 </div>
@@ -82,7 +82,7 @@
                 <?php foreach($products as $product) : ?>
                 <?php
                     $src    = URL.'/img/img.png';
-                    $imgUrl =('/img/Products/'.$product->img);           
+                    $imgUrl =('/img/Products/'.$product->category.'/'.$product->img);           
                     if($product->img != NULL && is_readable(SITE_PATH.$imgUrl)){$src = URL.$imgUrl;}        
                 ?>
                 <div id="product" class="row bg-info"> 
@@ -94,26 +94,25 @@
                         <div><?= $product->description;?></div> 
                     </div>
                     <div class="col-md-4">
-                       <div class="col-md-6" >
+                       <div class="col-md-4" >
                                 </br>
                                 <div>Название:</div>      
                                 <div>Цена:</div>
-                                <div>Количество:</div>
+                                <div>Кол-во:</div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-8">
                                 </br>
                                 <div><a href="<?=URL.'/product/productInfo/page/'.$currentPage.'/id/'.$product->id?>"><?= $product->name;?> </a> </div>
                                 <div><?= $product->price;?></div>
                                 <div><?= $product->total;?></div>
                                 </br>
-                                <a href="<?=URL.'/product/productInfo/page/'.$currentPage.'/id/'.$product->id?>"class="btn btn-primary btn-lg text-right" role="button">Купить</a>
+                                <a href="<?=URL.'/product/productInfo/page/'.$currentPage.'/id/'.$product->id?>" class="btn btn-primary btn-lg text-right" role="button">Выбрать</a>
                             </div>
                     </div>
                   </div><br/>
                 <?php endforeach; ?>
             <!--include pagination-->
             <?php 
-            $countPages = ceil($view->getParam('countProducts') / $limit);
             if($countPages>1){include SITE_PATH.DS.'View'.DS.'paginator.phtml';}
             ?>
             

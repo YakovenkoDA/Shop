@@ -5,7 +5,10 @@ $action=$view->getParam('action');
 str_replace($id,'_', '/');
 $url=URL.'/admin/'.$action.'/page/'.$currentPage;
 ?>
-<div class="mainBox" id="remove">
+<br/>
+<div class="bg-danger text-center col-md-4 col-md-offset-4" id="remove">
+    
     <h2>Вы действительно хотите удалить запись?</h2>
-    <a href="<?=$url.'/remove/1'.'/id/'.$id?>">Да!</a><a href="<?=$url?>">Отменить</a>
+    <a href="<?=$url.'/remove/1'.'/id/'.$id?>" class="btn btn-primary btn-sm text-right" role="button">Да!</a>
+    <a href="<?=$url?>" class="btn btn-primary btn-sm text-right" role="button">Отменить</a>
 </div>

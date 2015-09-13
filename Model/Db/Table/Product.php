@@ -16,18 +16,19 @@ class Model_Db_Table_Product extends System_Db_Table
         $img            = $productModel->img;
         $price          = $productModel->price;
         $total          = $productModel->total;
+        $category       =$productModel->category;
         
         if($id !=NULL)
             {
-            $sth = $this->_connection->prepare('UPDATE ' . $this->_name . ' SET name=?,description=?,img=?,price=?,total=? where id='.$id);    
+            $sth = $this->_connection->prepare('UPDATE ' . $this->_name . ' SET name=?,description=?,img=?,price=?,total=?,category=? where id='.$id);    
             }
             else 
             {
-            $sth = $this->_connection->prepare('INSERT INTO ' . $this->_name . ' (name,description,img,price,total) VALUES (?,?,?,?,?)');            
+            $sth = $this->_connection->prepare('INSERT INTO ' . $this->_name . ' (name,description,img,price,total,category) VALUES (?,?,?,?,?,?)');            
             }
         
         
-        $result = $sth->execute(array($name,$description,$img,$price,$total));       
+        $result = $sth->execute(array($name,$description,$img,$price,$total,$category));       
     }
     /**
      * 

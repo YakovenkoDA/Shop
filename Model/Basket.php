@@ -27,8 +27,10 @@ class Model_Basket
      */
     public $count;
     
-    public static function setBasket($id,$count=1)
+    public static function setBasket($id)
     {
+        $count=(int)$_POST['quantity'];       
+        if(empty($count) && $count<1){$count=1;}
         if(isset($_SESSION['basket'][$id]))
                 {
                 $modelProduct=  unserialize($_SESSION['basket'][$id]);

@@ -30,39 +30,53 @@ if(!empty($product))
     $description = $product->description;
     $price= $product->price;
     $total= $product->total;
-    $imgUrl =('/img/Products/'.$product->img);        
+    $category=$product->category;
+    $imgUrl =('/img/Products/'.$product->category.'/'.$product->img);        
     if($product->img != NULL && is_readable(SITE_PATH.$imgUrl)){$src = URL.$imgUrl;}    
     }      
 ?>
 
 <!--form for insert(update) product-->
-<div class="mainBox" id="body">
-<div class="error"><?=$errorMessage?></div>
-<form action="<?=$url.'/page/'.$currentPage.'/set/1'?>" method="POST" enctype="multipart/form-data">
-    <div>
-     <label for="img"><img alt="<?='img-'.$product->img;?>" src="<?=$src?>"></label>
-     <input type="file" name="img" id="img">  
-    </div>
-    <div id="forLabel">    
-    <label for="name">Name</label>
-    <label for="price">Price</label>
-    <label for="total">Total</label>
-    </div>
-    <div id="forInput">
-    <input type="text" name="name" id="name" value="<?=$name?>"placeholder="new name">
-    <input type="number" name="price" id="price" value="<?=$price?>" placeholder="new price">  
-    <input type="number" name="total" id="total" value="<?=$total?>"placeholder="new total">
-    </div>    
-    <div>
-     <label for="description">description</label><br/>
-     <textarea name="description" id="description"><?=$description?></textarea>
-    </div>    
-    <div>
-        <input type="submit" value="Ok">
-        <input type="reset" value="Reset">
-    </div>
-</form>
-<form action="<?=URL.'/Admin/product'.'/page/'.$currentPage?>">
-    <input type="submit" value="Cansel">
-</form>
+<div class="text-center" id="body">
+<br/>
+    <div class="bg-danger text-center"><?=$errorMessage?></div>
+            <form action="<?=$url.'/page/'.$currentPage.'/set/1'?>" method="POST" enctype="multipart/form-data">
+            <div class="row">    
+                <div class="col-md-2 col-md-offset-2">
+                    <label for="img"><img height="200px"alt="<?='img-'.$product->img;?>" src="<?=$src?>"></label>
+                 
+                </div>
+                <div  class="col-md-2 text-right" id="forLabel">
+                    <br/>
+                    <div><label for="name">Название</label></div>
+                    <div><label for="price">Цена</label></div>
+                    <div><label for="total">Количество</label></div>
+                    <div><label for="total">Категория</label></div>
+                    <div><label for="file">Фаил</label></div>
+                </div>
+                <div class="col-md-2 text-left" id="forInput">
+                    <br/>
+                    <input type="text" name="name" id="name" value="<?=$name?>"placeholder="new name">
+                    <input type="number" name="price" id="price" value="<?=$price?>" placeholder="new price">  
+                    <input type="number" name="total" id="total" value="<?=$total?>"placeholder="new total">
+                    <input type="number" name="category" id="category" value="<?=$category?>"placeholder="category">
+                    <input type="text" name="file" id="file" value="<?=$product->img?>"placeholder="file">
+                    </br>
+                    </br>
+                    <input type="file" name="img" id="img">  
+                </div>    
+                <div class="col-md-2" >
+                 <label for="description">Описание</label><br/>
+                 <textarea name="description" id="description"><?=$description?></textarea>
+                </div> 
+            </div>
+        <div class="row">
+                <div>
+                    <input type="submit" value="Ok">
+                    <input type="reset" value="Сброс">
+                    <a href="<?=URL.'/Admin/product'.'/page/'.$currentPage?>" class="btn btn-primary btn-sm text-right" role="button">Отмена</a>
+                </div>
+            
+            </form>
+        </div>
 </div>

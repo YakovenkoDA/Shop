@@ -2,7 +2,6 @@
 <?php
 $errorType = $view->getParam('error');
 $errorMessage = '';
-echo $errorType;
     if(!empty($errorType)) {
         switch($errorType) {
             case System_Exception::INVALID_LOGIN:
@@ -34,42 +33,50 @@ if(!empty($order))
     }      
 ?>
 
-<!--form for insert(update) product-->
-<div class="mainBox" id="body">
-<div class="error"><?=$errorMessage?></div>
+<!--form for insert(update) order-->
+<div class="col-md-4 col-md-offset-4" id="body">
+    <br />
+<div class="bg-danger text-center"><?=$errorMessage?></div>
 <form action="<?=$url.'/page/'.$currentPage.'/set/1'?>" method="POST" enctype="multipart/form-data">
     
     <div id="forInput">
-    <label for="email">email</label>   
-    <input type="text" name="email" id="name" value="<?=$user->email?>"placeholder="new name"> 
+    <label for="email">eMail</label>   
+    <input type="text" name="email" id="name" value="<?=$user->email?>"placeholder="eMail"> 
     </div>  
     <div>
-    <label for="date">date</label> 
-    <input type="date" name="date" id="date" value="<?=$date?>"placeholder="new total">
+    <label for="date">Дата</label> 
+    <input type="date" name="date" id="date" value="<?=$date?>"placeholder="Date">
     </div> 
     <h4>products</h4> 
-    <a id="add" href="#">add product</a>
-    <div id="products">
-        <?php
-        $i=0;
-    foreach ($products as $item)
-        {     
-        ++$i;
-        echo '<div>';
-        echo '<label name="'.$i.'">'.$i.'</label>';
-        echo '<input type="text" name="product'.$i.'" id="product'.$i.'" value="'.$item->modelProduct->name.'">';
-        echo '<input type="number" name="quantity'.$i.'" id="quantity'.$i.'" value="'.$item->quantity.'">';
-        echo '</div>';
-        }
-    ?>
-    </div>  
+    <a id="add" href="#" class="btn btn-primary btn-sm text-right" role="button">Добавить продукт</a>
     
+    <div id="products">
+        <br />
+        <?php if(empty($products)):?>
+        <div>
+            <label name="1">1</label>
+            <input type="text" name="product1" id="product1" placeholder="Product">
+            <input type="number" name="quantity1" id="quantity1" placeholder="quantity">
+        </div>
+        <?php else:?>
+            <?php
+            $i=0;
+            foreach ($products as $item):?>
+                  
+                <?php ++$i;?>
+               <div>
+                    <label name="<?=$i?>"><?=$i?></label>
+                    <input type="text" name="product<?=$i?>" id="product<?=$i?>" value="<?=$item->modelProduct->name?>">
+                    <input type="number" name="quantity<?=$i?>" id="quantity<?=$i?>" value="<?=$item->quantity?>">
+               </div>
+                <?php endforeach;?>
+        <?php endif;?>
+    </div>  
+    <br />
     <div>
         <input type="submit" value="Ok">
-        <input type="reset" value="Reset">
+        <input type="reset" value="Сброс">
+        <a href="<?=URL.'/Admin/order'.'/page/'.$currentPage?>" class="btn btn-primary btn-sm text-right" role="button">Отмена</a>
     </div>
-</form>
-<form action="<?=URL.'/Admin/order'.'/page/'.$currentPage?>">
-    <input type="submit" value="Cansel">
 </form>
 </div>

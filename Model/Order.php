@@ -186,4 +186,29 @@ class Model_Order
     $dbTableOrder = new Model_Db_Table_Order();         
     $dbTableOrder->create($modelOrder);            
     }
+     public static function setBasket($id,$basket)
+    {
+         $userId=empty($id)?202:$id;
+         $date = date("Y-m-d");
+         $amount=0;
+         $products=array();
+         foreach ($basket as $item)
+             {
+             $product=  unserialize($item);
+             $amount+=$product->price*$product->count;
+             $products[$product->id]=$product->count;
+             }
+             
+            $connection = System_Registry::get('db');
+            $sth = $connection->prepare('INSERT INTO `order` (user_id,date,amount) VALUES (?,?,?)');
+            $sth->execute(array($userId,$date,$amount)); 
+            $orderId = $connection->lastInsertId();
+            
+        
+            foreach ($products as $product=>$quantity){
+                $sth = $connection->prepare('INSERT INTO order_item (order_id,product_id,quantity) VALUES (?,?,?)');
+                $sth->execute(array($orderId,$product,$quantity)); 
+                
+                }
+    }
 }

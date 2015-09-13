@@ -125,7 +125,7 @@ class Model_Product
             $modelProduct->description  = $productData->description;
             $modelProduct->price        = $productData->price;
             $modelProduct->total        = $productData->total;
-
+            $modelProduct->category     = $productData->category;   
             return $modelProduct;
         }
         else {
@@ -192,13 +192,22 @@ class Model_Product
             *upload file
             *@return $error
             */
-            if(!empty($_FILES['img']['name']))
-                {
-                $pathImg= SITE_PATH.'img/Products/'.$_FILES['img']['name'];
-                if($_FILES['img']['error']!=0){return $error=6;}
-                if(file_exists($pathImg)){return $error=7;}
-                move_uploaded_file($_FILES['img']['tmp_name'],$pathImg);
-                }
+            $pathImg = SITE_PATH.'img/Products/'.$_POST['category'].'/';
+            if(!empty($_POST['file']) && file_exists($pathImg.$_POST['file']))
+            {
+                
+            }
+            else{
+
+                if(!empty($_FILES['img']['name']))
+                    {
+                    $pathImg.= $_FILES['img']['name'];
+                    if($_FILES['img']['error']!=0){return $error=6;}
+                    if(file_exists($pathImg)){return $error=7;}
+                    move_uploaded_file($_FILES['img']['tmp_name'],$pathImg);
+                    $_POST['file']=$_FILES['img']['name'];
+                    }
+            }
         }
         /**
          * @return int $error
@@ -212,11 +221,12 @@ class Model_Product
      */
     $modelProduct = new self();    
     $modelProduct->id           = $id;
-    $modelProduct->name         = $name;   
+    $modelProduct->name         = $name;
     $modelProduct->price        = !empty($_POST['price']) ? trim($_POST['price']) : 0;
+    $modelProduct->category        = !empty($_POST['category']) ? trim($_POST['category']) : 0;
     $modelProduct->total        = !empty($_POST['total']) ? trim($_POST['total']) : 0;
     $modelProduct->description  = !empty($_POST['description']) ? $_POST['description'] : ' ';
-    $modelProduct->img          = !empty($_FILES['img']['name']) ? $_FILES['img']['name'] : ' ';
+    $modelProduct->img          = !empty($_POST['file']) ? $_POST['file'] : ' ';
     
     $dbTableProduct->create($modelProduct);            
     }
