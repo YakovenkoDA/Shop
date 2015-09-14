@@ -3,12 +3,18 @@
        $tel =       $view->getParam('tel');
        $email =     $view->getParam('email');
 ?>
-<h2 class="mainBox">Контакты</h2>
+<h2 class="text-primary">Контакты</h2>
 <div id="body" class="mainBox">
-    <h3>Адрес : </h3><div><?=$address?></div>
-    <h3>eMail : </h3><div><?=$email?></div>
-    <h3>Skype : </h3><div><?php echo $_SERVER['SERVER_NAME']?></div>
-<div id="tel"><h3>Наши телефоны :</h3></div>
+    <div class="row">
+    <h3 class="col-md-2 text-right">Адрес : </h3><h3 class="col-md-4 text-info"><?=$address?></h3>
+    </div>
+    <div class="row">
+    <h3 class="col-md-2 text-right">eMail : </h3><h3 class="col-md-4 text-info"><?=$email?></h3>
+    </div>
+    <div class="row">
+    <h3 class="col-md-2 text-right">Skype : </h3><h3 class="col-md-4 text-info"><?php echo $_SERVER['SERVER_NAME']?></h3>
+    </div>
+<div id="tel"><h3 class="text-primary">Наши телефоны :</h3></div>
 <p>Life : </p>
 <p>MTS : <?=$tel?></p>
 <p>Київстар : </p>

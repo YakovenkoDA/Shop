@@ -16,10 +16,9 @@ class Controller_Basket extends System_Controller
     } 
     public function  buyAction ()
     {
-        
-    } 
-    public function  completAction ()
-    {
+    $params = $this->_getArguments();
+    if(!empty($params['complet']))
+        {
         $userId=$this->_userId;
         $basket=$this->getSessParam('basket');
         try {
@@ -28,5 +27,12 @@ class Controller_Basket extends System_Controller
             catch(Exception $e) {
             $this->view->setParam('error', $e->getMessage());
             }
+        header('location: '.URL.'/basket/complet');
+        unset($_SESSION['basket']);
+        }
+    } 
+    public function  completAction ()
+    {
+        
     } 
 }

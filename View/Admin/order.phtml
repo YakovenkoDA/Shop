@@ -28,7 +28,7 @@
 <?php if(!empty($orders)) :?>
 <!--include pagination-->
     <?php 
-    $countPages = ceil($view->getParam('countProducts') / $limit);
+    $countPages = ceil($view->getParam('countOrder') / $limit);
     if($countPages>1){include SITE_PATH.DS.'View'.DS.'paginator.phtml';}
     ?>
     <table class="table table-striped">

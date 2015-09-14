@@ -52,7 +52,7 @@ class Controller_Admin extends System_Controller
          * set view
          */
         $this->view->setParam('orders', $orderrModels);
-        $this->view->setParam('countCustomers', $countOrders);
+        $this->view->setParam('countOrder', $countOrders);
         $this->view->setParam('currentPage', $currentPage);        
     }
     
