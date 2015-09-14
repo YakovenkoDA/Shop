@@ -1,5 +1,4 @@
 <?php
-
 class Controller_Admin extends System_Controller
 {
     /**
@@ -18,11 +17,13 @@ class Controller_Admin extends System_Controller
      */
     public function indexAction()
     {
-        
+        //empty
     }
     
-    
-    
+    /**
+     * Admin order
+     * return Model_Order to view
+     */
     public function orderAction()
     {    
         $params = $this->_getArguments();  
@@ -35,7 +36,7 @@ class Controller_Admin extends System_Controller
         else {$params['orderby']=$this->getSessParam('orderByOrder');}        
         $currentPage    = !empty($params['page']) ? $params['page'] : 1;
         /**
-         * if remove or insert(update) product
+         * if remove or insert(update) order
          */
         if(!empty($params['remove'])){ Model_Order :: remove($params['id']);}
         if(!empty($params['set'])){ $error = Model_Order :: setOrder($params['id']);}
@@ -44,8 +45,14 @@ class Controller_Admin extends System_Controller
         /**
          * @var Model_User[] $orderModels
          */
-        $orderrModels = Model_Order :: getItems($params);
-        $countOrders = Model_Order :: getCountItems();
+        try {
+           $orderrModels = Model_Order :: getItems($params);
+           $countOrders = Model_Order :: getCountItems();
+        }
+        catch(Exception $e) {
+            $this->view->setParam('error', $e->getMessage());
+        }
+        
         
         if($this->getSessParam('limit')== NULL){$this->setSessParam('limit',5);}
         /**
@@ -100,10 +107,10 @@ class Controller_Admin extends System_Controller
         $this->view->setParam('currentPage', $currentPage);        
     }
     
-    
-    
-    
-     public function orderInfoAction()
+    /**
+     * order info
+     */
+ public function orderInfoAction()
     {
         $params = $this->_getArguments();
         /**
@@ -161,8 +168,7 @@ class Controller_Admin extends System_Controller
             catch(Exception $e) {
             $this->view->setParam('error', $e->getMessage());
             }
-        }      
-    
+        }        
     }
     /**
      * view  ask if remove

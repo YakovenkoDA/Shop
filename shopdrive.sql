@@ -43,9 +43,9 @@ CREATE TABLE IF NOT EXISTS `order` (
   PRIMARY KEY (`id`),
   KEY `FK_order_user` (`user_id`),
   CONSTRAINT `FK_order_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы shopdrive.order: ~6 rows (приблизительно)
+-- Дамп данных таблицы shopdrive.order: ~8 rows (приблизительно)
 /*!40000 ALTER TABLE `order` DISABLE KEYS */;
 INSERT INTO `order` (`id`, `user_id`, `date`, `amount`) VALUES
 	(4, 13, '2011-11-01', 198.00),
@@ -53,7 +53,9 @@ INSERT INTO `order` (`id`, `user_id`, `date`, `amount`) VALUES
 	(8, 17, '2011-11-03', 5000.00),
 	(9, 1, '2011-11-02', 1200.00),
 	(12, 202, '2015-09-07', 1650.00),
-	(21, 204, '2015-09-14', 4770.00);
+	(21, 204, '2015-09-14', 4770.00),
+	(22, 202, '2015-09-14', 2253.00),
+	(23, 202, '2015-09-14', 16129.00);
 /*!40000 ALTER TABLE `order` ENABLE KEYS */;
 
 
@@ -68,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `order_item` (
   CONSTRAINT `FK_order_item_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы shopdrive.order_item: ~8 rows (приблизительно)
+-- Дамп данных таблицы shopdrive.order_item: ~11 rows (приблизительно)
 /*!40000 ALTER TABLE `order_item` DISABLE KEYS */;
 INSERT INTO `order_item` (`order_id`, `product_id`, `quantity`) VALUES
 	(4, 16, 3),
@@ -78,7 +80,10 @@ INSERT INTO `order_item` (`order_id`, `product_id`, `quantity`) VALUES
 	(8, 2, 2),
 	(12, 20, 1),
 	(21, 4, 1),
-	(21, 24, 1);
+	(21, 24, 1),
+	(22, 6, 1),
+	(23, 24, 1),
+	(23, 29, 2);
 /*!40000 ALTER TABLE `order_item` ENABLE KEYS */;
 
 

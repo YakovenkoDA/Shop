@@ -31,6 +31,7 @@ class Model_Db_Table_Product extends System_Db_Table
         $result = $sth->execute(array($name,$description,$img,$price,$total,$category));       
     }
     /**
+     * get product by name
      * 
      * @param str $name
      * @param int $id

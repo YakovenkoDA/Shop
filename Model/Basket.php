@@ -4,31 +4,35 @@ class Model_Basket
     /**
      *  @var int 
      */
-    public $id;
-    
+    public $id; 
     /**
-     *
      * @var string  
      */
     public $name;   
     /**
-     *
      * @var string 
      */
     public $img;    
     /**
-     *
      * @var double 
      */
     public $price;
     /**
-     *
      * @var int 
      */
     public $count;
-    
+    /**
+     * set session basket
+     * 
+     * @param int $id
+     * @throws Exception
+     */
     public static function setBasket($id)
     {
+        /**
+         * check quantity
+         * @var int $count
+         */
         $count=(int)$_POST['quantity'];       
         if(empty($count) || $count<1){$count=1;}
         if(isset($_SESSION['basket'][$id]))
@@ -48,12 +52,9 @@ class Model_Basket
                         $modelProduct->price        = $productData->price;
                         $modelProduct->count        = $count;
                         
-                        $_SESSION['basket'][$id]=  serialize($modelProduct);
-                        
+                        $_SESSION['basket'][$id]=  serialize($modelProduct);   
                     }        
                     else {throw new Exception('Product not found', System_Exception::NOT_FOUND);}
                 }
-    }
-    
-   
+    }  
 }

@@ -8,13 +8,6 @@ class Controller_Company extends System_Controller
             {
        
             }
-    /**
-     * load view portfolio
-     */        
-    public function portfolioAction()
-            {
-        
-            }
      /**
      * load view about us
      */

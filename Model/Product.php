@@ -5,31 +5,26 @@ class Model_Product
      *  @var int 
      */
     public $id;
-    
     /**
      *
      * @var string  
      */
     public $name;
-    
     /**
      *
      * @var string 
      */
     public $description;
-    
     /**
      *
      * @var string 
      */
     public $img;
-    
     /**
      *
      * @var double 
      */
     public $price;
-    
     /**
      *
      * @var int 
@@ -40,13 +35,18 @@ class Model_Product
      * @var int
      */
     public $category;
+    
     /**
+     * get product by psrams
      * 
      * @param type $params
      * @return \self
      */
     public static function getItems($params)
     {
+        /**
+         * @var Model_Db_Table_Product $dbTableProduct
+         */
         $dbTableProduct = new Model_Db_Table_Product();
         $productsData   = $dbTableProduct->getByCriteria($params);
              
@@ -64,48 +64,9 @@ class Model_Product
         
         return $productModels;
     }
+
     /**
-     * 
-     * @return \self
-     */
-    public function getAll()
-    {
-        $productTable = new Model_Db_Table_Product();
-        $products = $productTable->getAll();
-        
-        
-        $productModels = array();
-        foreach ($products as $item) {
-            $productModel = new self();
-            $productModel->id = $item->id;
-            $productModel->name = $item->name;
-            $productModel->description = $item->description;
-            $productModel->price = $item->price;
-            $productModel->total = $item->total;
-            $productModels[] = $productModel;
-        }
-             
-        return $productModels;
-    }
-    /**
-     * 
-     * return DiscountPrice
-     */
-    
-    public function getDiscountPrice()
-    {
-        return $this->price * 0.8;
-    }
-    /**
-     * 
-     * @return type
-     */
-    public function getProductLink()
-    {
-        return '<a href="./info/id/' . $this->id .  '">' . $this->name . '</a>';
-    }
-    
-    /**
+     * get product by id
      * 
      * @param int $productId
      * @return Model_Product
@@ -113,8 +74,10 @@ class Model_Product
      */
     public static function getById($productId)
     {
+        /**
+         * @var Model_Db_Table_Product $productTable
+         */
         $productTable     =  new Model_Db_Table_Product();
-
         $productData   =  reset($productTable->getById($productId));
                 
         if($productData) {
@@ -133,6 +96,7 @@ class Model_Product
         }
     }
     /**
+     * get product count
      * 
      * @return int $countItems
      */
@@ -140,11 +104,16 @@ class Model_Product
     {
         if(empty($category))
        {
+        /**
+         * @var Model_Db_Table_Product $dbTableProduct
+         */    
         $dbTableProduct = new Model_Db_Table_Product();
         $countItems     = $dbTableProduct->getCount();
         return $countItems;         
         }
-        
+        /**
+         * if have category
+         */
         $connection = System_Registry::get('db');
         $sql    = 'select count(*) from product where category = '.$category;       
         $sth    = $connection->prepare($sql);
@@ -193,12 +162,8 @@ class Model_Product
             *@return $error
             */
             $pathImg = SITE_PATH.'img/Products/'.$_POST['category'].'/';
-            if(!empty($_POST['file']) && file_exists($pathImg.$_POST['file']))
+            if(empty($_POST['file']) && !file_exists($pathImg.$_POST['file']))
             {
-                
-            }
-            else{
-
                 if(!empty($_FILES['img']['name']))
                     {
                     $pathImg.= $_FILES['img']['name'];

@@ -15,21 +15,24 @@ class Controller_Product extends System_Controller
         if(!empty($params['orderby'])){$this->setSessParam('orderByProduct',$params['orderby']);}        
         else {$params['orderby']=$this->getSessParam('orderByProduct');}
         if(isset($params['category'])){$this->setSessParam('category',$params['category']);}
-        
+        /**
+         * @var Model_Basket 
+         * set basket
+         */
         try {
-        if(!empty ($params['bye'])){Model_Basket :: setBasket($params['id']);}
-        }
+            if(!empty ($params['bye'])){Model_Basket :: setBasket($params['id']);}
+            }
         catch(Exception $e) {
             $this->view->setParam('error', $e->getMessage());
-        }
+            }
         $currentPage    = !empty($params['page']) ? $params['page'] : 1; 
         /**
          * @var Model_Product[] $productModels
          */
         try {
-        $productModels = Model_Product :: getItems($params);
-        $countProducts = Model_Product :: getCountItems($this->getSessParam('category'));
-        }
+            $productModels = Model_Product :: getItems($params);
+            $countProducts = Model_Product :: getCountItems($this->getSessParam('category'));
+            }
         catch(Exception $e) {
             $this->view->setParam('error', $e->getMessage());
         }
@@ -41,7 +44,11 @@ class Controller_Product extends System_Controller
         $this->view->setParam('products', $productModels);
         $this->view->setParam('countProducts', $countProducts);        
         $this->view->setParam('currentPage', $currentPage);        
-    }  
+    }
+    /**
+     * Product InfoAction
+     * load product by id
+     */
     public function productInfoAction()
     {
         $params = $this->_getArguments();

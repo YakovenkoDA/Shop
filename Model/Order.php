@@ -13,35 +13,33 @@ class Model_Order
     public $modelUser;
     
     /**
-     *
      * @var date
      */
-    public $date;    
-    
+    public $date;      
     /**
-     *
      * @var double 
      */
     public $amount;
     /**
-     *
      * @var array Model_OrderItem
      */
     public $orderItems;
 
-
     /**
+     * get order by params
      * 
-     * @param type $params
+     * @param array $params
      * @return \self
      */
     public static function getItems($params)
     {
+        /**
+         * @var Model_Db_Table_Order $dbTableOrder
+         */
         $dbTableOrder = new Model_Db_Table_Order();
         $orderData   = $dbTableOrder->getByCriteria($params);
         
         $orderModels = array();
-        
         foreach ($orderData as $item) {
             $orderModel               = new self();
             $orderModel->id           = $item->id;
@@ -59,13 +57,24 @@ class Model_Order
         return $orderModels;
     }
     
-    
+    /**
+     * get order by id
+     * 
+     * @param int $orderId
+     * @return \self
+     * @throws Exception
+     */
    
     public static function getById($orderId)
     {
+        /**
+         * @var Model_Db_Table_Order $dbTableOrder
+         */
         $dbTableOrder     =  new Model_Db_Table_Order();
         $orderData   =  reset($dbTableOrder->getById($orderId));
-        
+        /**
+         * @var Model_OrderItem $orderItems
+         */
         $orderItems= Model_OrderItem :: getOrderItems($orderId);     
         
         if($orderData) {            
@@ -86,23 +95,24 @@ class Model_Order
   
         return $orderModel;
     }
-    /**
-     * 
-     * @return int $countItems
-     */
-    public static function getCountItems()
+/**
+* get count of order
+* 
+* @return int $countItems
+*/
+public static function getCountItems()
     {        
         $dbTableOrder = new Model_Db_Table_Order();
         $countItems     = $dbTableOrder->getCount();
         return $countItems;         
 
     }
-    /**
-     * if remove order
-     * 
-     * @param int $id
-     */
-    public static function remove($id)
+/**
+* if remove order
+* 
+* @param int $id
+*/
+public static function remove($id)
     {
         /**
          * @var Model_Db_Table_Product $dbTableProduct
@@ -110,21 +120,25 @@ class Model_Order
         $dbTableOrder = new Model_Db_Table_Order();
         $dbTableOrder->removeByID($id);
     }
-    /**
-     * if insert or update product
-     * 
-     * @param type $id
-     * @return type
-     */
-    public static function setOrder($id=NULL)
+/**
+* if insert or update order
+* 
+* @param int $id
+* can
+* @return int $error
+ */
+public static function setOrder($id=NULL)
     {
-        
-    
+        /**
+         * check email
+         * create 
+         * @var  object  $user 
+         */
         if(!empty($_POST['email']))
         {          
             $email = $_POST['email'];
             /**
-             * @var Model_Db_Table_Producte $dbTableProduct
+             * @var Model_Db_Table_User $dbTableUser
              */
             $dbTableUser = new Model_Db_Table_User();
             $user=  reset($dbTableUser->selectByEmail($email));
@@ -138,6 +152,12 @@ class Model_Order
          * @return int $error
          */
          else  { return $error=4;}
+         /**
+          * check product
+          * create 
+          * @var array $products
+          * @var number $amount
+          */
         if(!empty($_POST['product1']))
         {   
             $i=1;
@@ -145,36 +165,42 @@ class Model_Order
             $products=array();
             while(!empty($_POST['product'.$i]))
             {            
-            $product=$_POST['product'.$i];
-            $quantity=$_POST['quantity'.$i];
-            /**
-             * @var Model_Db_Table_Producte $dbTableProduct
-             */
-            $dbTableProduct = new Model_Db_Table_Product();
-            $resalt=reset($dbTableProduct->selectByName($product));
-            /**
-             *@return $error
-             */
-            if(empty($resalt)){return $error=5;}
-            $products[$resalt->id]=$quantity;
-            $amount+=$resalt->price*$quantity;
-            ++$i;
+                $product=$_POST['product'.$i];
+                $quantity=$_POST['quantity'.$i];
+                /**
+                 * @var Model_Db_Table_Producte $dbTableProduct
+                 */
+                $dbTableProduct = new Model_Db_Table_Product();
+                $resalt=reset($dbTableProduct->selectByName($product));
+                    /**
+                     *@return $error
+                     */
+                    if(empty($resalt)){return $error=5;}
+                $products[$resalt->id]=$quantity;
+                $amount+=$resalt->price*$quantity;
+                ++$i;
             }             
         }
         /**
          * @return int $error
          */
          else  { return $error=5;}
+         /**
+          * check date
+          */
          if(!empty($_POST['date']))
          {
              $date=trim( $_POST['date']);
              $data=explode('-',$date);
              if(!checkdate($data[1], $data[2], $data[0])){return $error=2;}
          }
+          /**
+          *@return $error
+          */
          else {return $error=2;}
          
     /**
-     * @var Model_Product $modelProduct
+     * create /self
      */
     $modelOrder = new self();    
     $modelOrder->id           = $id;
@@ -182,14 +208,26 @@ class Model_Order
     $modelOrder->date         = $date;
     $modelOrder->amount        = $amount;
     $modelOrder->orderItems  = $products;
-    
+    /**
+     * @var Model_Db_Table_Order $dbTableOrder
+     */
     $dbTableOrder = new Model_Db_Table_Order();         
     $dbTableOrder->create($modelOrder);            
     }
-     public static function setBasket($id,$basket)
+/**
+ * insert order
+ * 
+ * @param int $id
+ * @param array $basket (serialize)
+ */
+public static function setOrderBasket($id,$basket)
     {
+         /**
+          * check $id
+          */
          $userId=empty($id)?202:$id;
          $date = date("Y-m-d");
+         
          $amount=0;
          $products=array();
          foreach ($basket as $item)
@@ -198,13 +236,15 @@ class Model_Order
              $amount+=$product->price*$product->count;
              $products[$product->id]=$product->count;
              }
-             
+            /**
+             * get connection
+             * insert data
+             */ 
             $connection = System_Registry::get('db');
             $sth = $connection->prepare('INSERT INTO `order` (user_id,date,amount) VALUES (?,?,?)');
             $sth->execute(array($userId,$date,$amount)); 
             $orderId = $connection->lastInsertId();
-            
-        
+     
             foreach ($products as $product=>$quantity){
                 $sth = $connection->prepare('INSERT INTO order_item (order_id,product_id,quantity) VALUES (?,?,?)');
                 $sth->execute(array($orderId,$product,$quantity)); 

@@ -1,4 +1,4 @@
-
+<!--get params-->
 <?php 
 $basket        = $controller->getSessParam('basket');
 $url=URL.'/basket/index'
@@ -6,6 +6,7 @@ $url=URL.'/basket/index'
 <div class="text-center col-md-8 col-md-offset-2">
     
 <?php if($basket):?>
+<!--show basket-->
     <div class="row">
         <h2 class="col-md-3 col-md-offset-4">Корзина</h2>
         <div  class="col-md-3"><br/><a href="<?=$url.'/remove/all'?>" class="btn btn-primary btn-sm text-right" role="button">Очистить</a></div>
@@ -48,10 +49,7 @@ foreach ($basket as $item):?>
         <h4 class="col-md-3 col-md-offset-5">Итого: <?=$total?> грн</h4>
         <div  class="col-md-2"><a href="<?=URL.'/basket/buy'?>" class="btn btn-success btn-lg text-right" role="button"> Купить </a></div>
     </div>
-
-
-
-
+<!--if empty-->
 <?php else:?>
 <h5>Ваша корзина пуста</h5>
 <?php endif;?>

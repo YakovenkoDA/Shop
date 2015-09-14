@@ -10,6 +10,7 @@ class Controller_User extends System_Controller
     }        
     /**
      * User profile view
+     * load user by id
      */
     public function profileAction()
     {

@@ -1,3 +1,4 @@
+<!--check params-->
 <?php 
     $userId = $controller->getUserId();
           
@@ -32,11 +33,12 @@
     <head>
         <meta charset="UTF-8">        
         <title><?php echo $_SERVER['SERVER_NAME'];?></title>
-        
+        <!--add bootstrap-->
         <link href="<?= URL; ?>/Bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-<!--        <link href="<?= URL.'/css/'.$viewFolder.'/'.$actionName.'.css'; ?>" rel="stylesheet" type="text/css"/>-->
+        <!--if nead include user css file--> 
+<!--    <link href="<?= URL.'/css/'.$viewFolder.'/'.$actionName.'.css'; ?>" rel="stylesheet" type="text/css"/>-->
         
-        <!-- add lquery-->
+        <!-- add jquery-->
         <script type="text/javascript" src="<?= URL;?>/fancybox/lib/jquery-1.10.1.min.js"></script> 
         
         <!-- Add mousewheel plugin (this is optional) -->
@@ -46,14 +48,18 @@
         <link rel="stylesheet" href="<?= URL?>/fancybox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
         <script type="text/javascript" src="<?= URL?>/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
         
+        <!--add user js-->
         <script type="text/javascript" src="<?= URL;?>/js/authorize.js"></script>
         <script type="text/javascript" src="<?= URL.'/js/'.$viewFolder.'/'.$actionName.'.js'?>"></script>
-    </head>    
+    </head> 
+    
+<!--                    Body                         -->
     <body class="container">
         <div class="row">
             <img alt="heder" src="<?=URL.'/img/logo.png'?>">
         </div>
      <br/>   
+     <!--login-->
         <div class="row"> 
             <div id="error" class="col-md-6 text-danger text-center"><?=$errorMessage?></div>
             <div class="col-md-6">
@@ -72,7 +78,7 @@
                 </div>
             </div>            
         </div>   
-       
+       <!--head menu-->
                 <div id="menu" class="mainBox">
                 <ul class="nav nav-tabs">
                     <li <?php if($viewFolder=='Index'):?>class="active"<?php endif;?>>
@@ -87,7 +93,7 @@
                         <a id="admin_href" href="<?php echo URL;?>/admin/index" <?php if($userRoleId != Model_User::ROLE_ADMIN_ID) { echo 'style="display: none;"'; } ?>>Админка </a></li>
                 </ul>
                 </div> 
-   
+   <!--include page data-->
                 <div id="forContent">
                 <?php
                     if(file_exists($viewFileName)) {
@@ -95,6 +101,7 @@
                     }
                 ?>
                 </div>
+   <!--Bootstrap js-->
             <script src="<?= URL;?>/Bootstrap/js/bootstrap.min.js"></script> 
             
         

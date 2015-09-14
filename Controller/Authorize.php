@@ -1,6 +1,11 @@
 <?php
 class Controller_Authorize extends System_Controller
 {
+   /**
+    * constract 
+    * set cookie (const Model User)
+    * load parent constract
+    */
     public function __construct()
     {
         if( $this->getParamByKey('save') == 'true' ) {
@@ -10,12 +15,17 @@ class Controller_Authorize extends System_Controller
         }
         parent::__construct();
     }
-    
+    /**
+     * empty
+     */
     public function indexAction()
     {
         
     }
-    
+    /**
+     * register(ajax)
+     * @return jSon $userData
+     */
     public function registerAction()
     {
         $params     = $this->getAllParams();
@@ -40,7 +50,10 @@ class Controller_Authorize extends System_Controller
             die();
         }
     }
-    
+    /**
+     * login(ajax)
+     * @return jSon $userData
+     */
     public function loginAction()
     {
         $params     = $this->getAllParams();
@@ -67,7 +80,10 @@ class Controller_Authorize extends System_Controller
             die();
         }
     }
-    
+    /**
+     * exit (ajax)
+     * destroy session
+     */
     public function exitAction()
     {
         $_SESSION = array();

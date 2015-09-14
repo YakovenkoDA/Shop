@@ -3,7 +3,7 @@ class Model_Db_Table_Order extends System_Db_Table
 {
     protected $_name = '`order`';
 /**
- * update or insert product to DB
+ * update or insert order
  * 
  * @param Model_Order $orderModel
  * 
@@ -15,8 +15,7 @@ class Model_Db_Table_Order extends System_Db_Table
         $date           = $orderModel->date;
         $amount         = $orderModel->amount;
         $products       = $orderModel->orderItems;
-        
-    
+
         if(!empty($id))
             {            
             $sth = $this->_connection->prepare('UPDATE ' . $this->_name . ' SET user_id=?,date=?,amount=? where id='.$id);
@@ -36,8 +35,6 @@ class Model_Db_Table_Order extends System_Db_Table
                 $sth->execute(array($id,$product,$quantity)); 
                 
                 }
-        
-       
     }
     
  }
