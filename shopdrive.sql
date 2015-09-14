@@ -43,17 +43,17 @@ CREATE TABLE IF NOT EXISTS `order` (
   PRIMARY KEY (`id`),
   KEY `FK_order_user` (`user_id`),
   CONSTRAINT `FK_order_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы shopdrive.order: ~5 rows (приблизительно)
+-- Дамп данных таблицы shopdrive.order: ~6 rows (приблизительно)
 /*!40000 ALTER TABLE `order` DISABLE KEYS */;
 INSERT INTO `order` (`id`, `user_id`, `date`, `amount`) VALUES
 	(4, 13, '2011-11-01', 198.00),
 	(6, 1, '2011-11-02', 1200.00),
 	(8, 17, '2011-11-03', 5000.00),
 	(9, 1, '2011-11-02', 1200.00),
-	(12, 202, '2015-09-07', 1110.00),
-	(13, 201, '2015-09-13', 14082.00);
+	(12, 202, '2015-09-07', 1650.00),
+	(21, 204, '2015-09-14', 4770.00);
 /*!40000 ALTER TABLE `order` ENABLE KEYS */;
 
 
@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `order_item` (
   CONSTRAINT `FK_order_item_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы shopdrive.order_item: ~5 rows (приблизительно)
+-- Дамп данных таблицы shopdrive.order_item: ~8 rows (приблизительно)
 /*!40000 ALTER TABLE `order_item` DISABLE KEYS */;
 INSERT INTO `order_item` (`order_id`, `product_id`, `quantity`) VALUES
 	(4, 16, 3),
@@ -76,9 +76,9 @@ INSERT INTO `order_item` (`order_id`, `product_id`, `quantity`) VALUES
 	(6, 5, 4),
 	(8, 1, 1),
 	(8, 2, 2),
-	(13, 1, 1),
-	(13, 2, 1),
-	(13, 3, 1);
+	(12, 20, 1),
+	(21, 4, 1),
+	(21, 24, 1);
 /*!40000 ALTER TABLE `order_item` ENABLE KEYS */;
 
 
@@ -158,43 +158,19 @@ CREATE TABLE IF NOT EXISTS `user` (
   UNIQUE KEY `login` (`login`),
   KEY `FK_user_role` (`role_id`),
   CONSTRAINT `FK_user_role` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=204 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=205 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы shopdrive.user: ~32 rows (приблизительно)
+-- Дамп данных таблицы shopdrive.user: ~8 rows (приблизительно)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`id`, `login`, `email`, `password`, `photo`, `role_id`, `is_active`) VALUES
 	(1, 'Ivanov Ivan', 'ivan@gmail.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '1.gif', 1, '1'),
-	(2, 'Sidorov Sidor', 'new@gmail.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '2.gif', 3, '1'),
+	(2, 'Sidorov Sidor', 'new@gmail.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '2.gif', 5, '1'),
 	(13, 'Andreev Andrey', 'andrey@gmail.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '3.gif', 5, '1'),
 	(14, 'Borisov Boris', 'boris@gmail.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '4.gif', 5, '1'),
 	(16, 'Olegov Oleg', 'oleg@gmail.ua', '7c4a8d09ca3762af61e59520943dc26494f8941b', '6.gif', 5, '1'),
 	(17, 'Denisov Denis', 'denis@gmail.ru', '7c4a8d09ca3762af61e59520943dc26494f8941b', '7.gif', 5, '1'),
-	(116, 'Google Moogle', 'google@gmail.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '9.gif', 3, '1'),
-	(179, NULL, 'oleg1@gmail.ua', '7c4a8d09ca3762af61e59520943dc26494f8941b', '', 5, '0'),
-	(180, NULL, 'oleg2@gmail.ua', '7c4a8d09ca3762af61e59520943dc26494f8941b', '', 5, '1'),
-	(181, NULL, 'oleg3@gmail.ua', '7c4a8d09ca3762af61e59520943dc26494f8941b', '', 5, '1'),
-	(182, NULL, 'oleg4@gmail.ua', '7c4a8d09ca3762af61e59520943dc26494f8941b', '', 5, '1'),
-	(183, NULL, 'oleg5@gmail.ua', '7c4a8d09ca3762af61e59520943dc26494f8941b', '', 5, '1'),
-	(184, NULL, 'oleg6@gmail.ua', '7c4a8d09ca3762af61e59520943dc26494f8941b', '', 1, '1'),
-	(185, NULL, 'DS@iii.com', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', '', 5, '1'),
-	(186, NULL, 'sasds@ret.com', '0f767bbed896569639738a43ab6b136cc25e5f63', '', 5, '1'),
-	(187, NULL, 'dd@fff.com', '01464e1616e3fdd5c60c0cc5516c1d1454cc4185', '', 5, '1'),
-	(188, NULL, 'ddddds@asd.dfg', 'f10e2821bbbea527ea02200352313bc059445190', '', 5, '1'),
-	(189, NULL, 'xccc@wde.wed', '304145699b660796513bbbf52eca3068d20eb021', '', 5, '1'),
-	(190, NULL, 'sdf@sdasd.ddd', '930a0029225aa4c28b8ef095b679285eaae27078', '', 5, '1'),
-	(191, NULL, 'dfg4353@sdfsd.sdf', 'e9a08769c9578b42be52de2bafcaad0fb0e91191', '', 5, '1'),
-	(192, NULL, 'dsfs@dsf.bbv', '8c411a89ed6d846f064ed0decdba3a857f0d1667', '', 5, '1'),
-	(193, NULL, 'sdas@sda.dfsf', '44cef431f67acb94eea6b80b7160b5e9d82e0bcc', '', 5, '1'),
-	(194, NULL, 'ddds@sdfs.fffg', '0082e254c83de8f5f415dc8285f3aa651b479f61', '', 5, '1'),
-	(195, NULL, 'sdfsdf@fdsf.ggh', '553ae7da92f5505a92bbb8c9d47be76ab9f65bc2', '', 5, '1'),
-	(196, NULL, 'asdas@sdfsd.fsd', 'eab0a38835eba59230ef98d8879dc2c198df96af', '', 5, '1'),
-	(197, NULL, 'sadasd@asdasd.asd', '56384a778a0ddf328e492f14ef1aa41588686385', '', 5, '1'),
-	(198, NULL, 'dsds@fdgdfg.fsdf', '8c411a89ed6d846f064ed0decdba3a857f0d1667', '', 5, '1'),
-	(199, NULL, 'asdasd@asdas.asd', '85136c79cbf9fe36bb9d05d0639c70c265c18d37', '', 5, '1'),
-	(200, NULL, 'sdfsdf@sdad.asda', '9a6747fc6259aa374ab4e1bb03074b6ec672cf99', '', 5, '1'),
-	(201, NULL, 'dis-ne@ukr.net', '932b159506b6b15729a2cc661a2a3b98de16692b', '', 1, '1'),
-	(202, 'guest', '', '', '', 5, '1'),
-	(203, NULL, 'admin@admin.ru', 'd033e22ae348aeb5660fc2140aec35850c4da997', '', 5, '1');
+	(202, 'guest', 'guest', '', '', 5, '1'),
+	(204, 'admin', 'admin@admin.com', 'd033e22ae348aeb5660fc2140aec35850c4da997', '10.jpg', 1, '1');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
